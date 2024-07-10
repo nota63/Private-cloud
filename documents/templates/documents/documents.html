@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload PDF</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        section {
+            margin-bottom: 0.75rem;
+        }
+        .message {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            font-size: 1.25rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        form p {
+            width: 100%;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a button {
+            width: 100%;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </section>
+
+    <h2>Upload PDF</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    <br>
+    <a href="{% url 'view_documents' %}">
+        <button type="button">View Documents</button>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.from("h2", { duration: 1, y: -50, opacity: 0, ease: "bounce" });
+            gsap.from("form", { duration: 1.5, opacity: 0, y: 50, ease: "power2.out" });
+            gsap.from("section", { duration: 1.5, opacity: 0, x: -50, ease: "power2.out", delay: 0.5 });
+        });
+    </script>
+</body>
+</html>
