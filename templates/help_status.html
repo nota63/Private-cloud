@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Status</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: 700;
+        }
+        td {
+            background-color: #fff;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        .header {
+            font-size: 18px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .alert {
+            font-size: 10px;
+            color: #ff0000;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="alert">Your bug report will be removed after your bug is fixed.</div>
+        <div class="header">Bug Reports</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Section</th>
+                        <th>Issue</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bug in bugs %}
+                    <tr>
+                        <td>{{ bug.name }}</td>
+                        <td>{{ bug.username }}</td>
+                        <td>{{ bug.section }}</td>
+                        <td>{{ bug.issue }}</td>
+                        <td>{{ bug.email }}</td>
+                        <td>{{ bug.date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.from('.container', {duration: 1, y: -50, opacity: 0, ease: 'power1.out'});
+            gsap.from('table', {duration: 1, x: -100, opacity: 0, ease: 'power1.out', delay: 0.5});
+            gsap.from('th, td', {duration: 1, y: 20, opacity: 0, ease: 'power1.out', delay: 1, stagger: 0.1});
+        });
+    </script>
+</body>
+</html>

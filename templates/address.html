@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Address</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0; /* Formal background color */
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h5 {
+            text-align: center;
+            color: #333; /* Formal text color */
+            font-size: 16px; /* Smaller font size for header */
+        }
+        section {
+            max-width: 300px; /* Set maximum width for form section */
+            margin: 0 auto; /* Center align the section */
+            padding: 20px;
+            background-color: #fff; /* White background for form container */
+            border: 1px solid #ccc; /* Border for form container */
+            border-radius: 5px; /* Rounded corners for form container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for form container */
+        }
+        form {
+            display: grid;
+            gap: 4px; /* Reduce gap between form elements */
+        }
+        input[type="text"], button {
+            width: 100%; /* Make inputs and buttons fill the container */
+            padding: 4px; /* Smaller padding for inputs and buttons */
+            border: 1px solid #ccc; /* Border for inputs */
+            border-radius: 3px; /* Rounded corners for inputs */
+            box-sizing: border-box;
+            font-size: 12px; /* Smaller font size for inputs */
+        }
+        button {
+            background-color: #007bff; /* Formal button background color */
+            color: #fff; /* Text color for buttons */
+            border: none; /* Remove border */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 4px 8px; /* Smaller padding for buttons */
+            font-size: 12px; /* Smaller font size for buttons */
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+        a {
+            text-decoration: none; /* Remove underline from links */
+        }
+        button, a {
+            display: block; /* Ensure buttons and links are block elements */
+            text-align: center; /* Center align text within buttons and links */
+            margin-top: 6px; /* Add margin on top of buttons and links */
+        }
+        p {
+            font-size: 12px; /* Smaller font size for messages */
+        }
+    </style>
+</head>
+<body>
+    <h5>Store Private Addresses Here</h5>
+
+    <section id="form-section">
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="text" name="city" placeholder="City" required>
+            <input type="text" name="pin_code" placeholder="Pin code" required>
+            <input type="text" name="colony" placeholder="Colony/Sector" required>
+            <input type="text" name="house_number" placeholder="House/Flat number" required>
+            <input type="text" name="district" placeholder="District">
+            <input type="text" name="state" placeholder="State" required>
+            <input type="text" name="country" placeholder="Country" required>
+            <button type="submit">Save</button>
+        </form>
+    </section>
+
+    <br>
+
+    <section>
+        <a href="{% url 'view_address' %}">
+            <button type="button">View Addresses</button>
+        </a>
+    </section>
+
+    <script>
+        // GSAP Animation for form section
+        gsap.from("#form-section", {duration: 1, y: 50, opacity: 0, ease: "power3.out"});
+        gsap.from("input, button", {
+            duration: 1,
+            y: 20,
+            opacity: 0,
+            delay: 0.5,
+            stagger: 0.1,
+            ease: "power3.out"
+        });
+    </script>
+</body>
+</html>

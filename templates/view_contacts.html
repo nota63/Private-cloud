@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Contacts</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 10px;
+        }
+
+        form {
+            margin-bottom: 10px;
+        }
+
+        form input[type="text"],
+        form button {
+            font-size: 10px;
+            padding: 4px 6px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .row {
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+
+        table th, table td {
+            padding: 4px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        .btn {
+            margin-top: 5px;
+        }
+
+        .btn button {
+            font-size: 10px;
+            padding: 4px 6px;
+        }
+    </style>
+</head>
+<body>
+   <section>
+       <form method="get" class="form-inline">
+           <input type="text" name="search" class="form-control mr-2" placeholder="Search">
+           <button type="submit" class="btn btn-primary btn-sm">Search</button>
+       </form>
+   </section>
+
+   <div class="row">
+       <div class="col-md-12">
+           <h4 class="text-center">Saved Contacts</h4>
+           <em>Total: {{ data|length }}</em>
+           <table class="table table-bordered table-hover">
+               <thead class="thead-dark">
+                   <tr>
+                       <th>ID</th>
+                       <th>Name</th>
+                       <th>Relation</th>
+                       <th>Contact Number</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   {% for contact in data %}
+                       <tr>
+                           <td>{{ contact.id }}</td>
+                           <td>{{ contact.name }}</td>
+                           <td>{{ contact.relation }}</td>
+                           <td>{{ contact.contact_number }}</td>
+                       </tr>
+                   {% empty %}
+                       <tr>
+                           <td colspan="4">No data found!</td>
+                       </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+       </div>
+   </div>
+   <br>
+
+   <section class="btn">
+       <a href="{% url 'download_button' %}">
+           <button type="submit" class="btn btn-primary btn-sm">Download Data</button>
+       </a>
+   </section>
+
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+   <script>
+       gsap.from('h4, em, .form-inline, .table, .btn', {duration: 1, y: -50, opacity: 0, ease: 'power1.out', stagger: 0.2});
+   </script>
+</body>
+</html>

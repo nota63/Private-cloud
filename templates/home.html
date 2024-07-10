@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <style>
+        body {
+            background-color: #f0faff;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-size: 12px; /* Smallest font size */
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Header Styles */
+        header {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 8px 16px; /* Smaller padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+            font-size: 12px; /* Smallest font size */
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            width: 30px; /* Smaller logo size */
+            height: 30px; /* Smaller logo size */
+            border-radius: 50%;
+            margin-right: 8px; /* Smaller margin */
+            overflow: hidden;
+        }
+        .social-icons {
+            display: flex;
+            align-items: center;
+        }
+        .social-icons a {
+            color: #fff;
+            margin-right: 6px; /* Smaller margin */
+            font-size: 0.8rem; /* Smaller font size */
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        .nav-links a {
+            margin-left: 12px; /* Smaller margin */
+            color: #fff;
+            font-size: 0.7rem; /* Smaller font size */
+            padding: 4px 8px; /* Smaller padding */
+            border-radius: 3px; /* Smaller border radius */
+            transition: background-color 0.3s ease;
+        }
+        .nav-links a:hover {
+            background-color: #555;
+        }
+        .welcome-message {
+            background-color: #428bca;
+            color: #fff;
+            padding: 4px 8px; /* Smaller padding */
+            border-radius: 3px; /* Smaller border radius */
+            margin-right: 8px; /* Smaller margin */
+            font-size: 0.7rem; /* Smaller font size */
+        }
+        /* Main Content Styles */
+        main {
+            text-align: center;
+            margin-top: 16px; /* Smaller margin */
+            padding: 10px; /* Smaller padding */
+            flex: 1;
+            font-size: 12px; /* Smallest font size */
+        }
+        main a {
+            display: inline-block;
+            background-color: #add8e6;
+            color: #333;
+            text-decoration: none;
+            padding: 4px 8px; /* Smaller padding */
+            margin: 4px; /* Smaller margin */
+            border-radius: 8px; /* Smaller border radius */
+            font-size: 0.7rem; /* Smaller font size */
+            transition: background-color 0.3s ease;
+        }
+        main a:hover {
+            background-color: #8abbd5;
+        }
+        /* Footer Styles */
+        footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 8px;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+            font-size: 0.7rem; /* Smaller font size */
+        }
+        footer p {
+            margin: 0;
+        }
+        /* GSAP Animation */
+        .animated {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="animated">
+    <div class="logo-container">
+        {% load static %}
+        <img src="{% static 'company.png'%}" alt="Company Logo" class="logo">
+        <div class="social-icons">
+            <a href="https://github.com/nota63" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.instagram.com/a_software_engineer_4/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/+919022216598" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/vishal.dudhabarve.31" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+    </div>
+    <div class="nav-links">
+        {% if user.is_authenticated %}
+        <p class="welcome-message">Hello, {{ user.username }}! Welcome Back!</p>
+        <a href="{% url 'logout' %}" class="btn">Logout</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="btn">Login</a>
+        <a href="{% url 'signup' %}" class="btn">Sign Up</a>
+        {% endif %}
+    </div>
+</header>
+
+<main>
+    <a href="{% url 'contacts_data'%}" class="btn">Contacts Cloud</a>
+    <a href="{% url 'email'%}" class="btn">Email Cloud</a>
+    <a href="{% url 'address'%}" class="btn">Address Cloud</a>
+    <a href="{% url 'upload_images'%}" class="btn">Image Cloud</a>
+    <a href="{% url 'feedback'%}" class="btn">Feedback</a>
+    <a href="{% url 'cal'%}" class="btn">Calendar</a>
+    <a href="{% url 'passwords'%}" class="btn">Passwords Cloud</a>
+    <a href="{% url 'task'%}" class="btn">Tasks Cloud</a>
+    <a href="{% url 'about_us'%}" class="btn">About-us</a>
+    <a href="{% url 'python_codes'%}" class="btn">Python Codes Cloud</a>
+    <a href="{% url 'insta_hack'%}" class="btn">Secret</a>
+    <a href="{% url 'readme'%}" class="btn">Developer(README.md)</a>
+    <a href="{% url 'web_scrapping'%}" class="btn">Web scrapping</a>
+    <a href="{% url 'documents'%}" class="btn">documents/pdfs</a>
+    <a href="{% url 'help'%}" class="btn">Help</a>
+    <a href="{% url 'smile'%}" class="btn">Smile</a>
+    <a href="{% url 'generate_password'%}" class="btn">Generate password</a>
+    <a href="{% url 'add_note'%}" class="btn">Notes</a>
+</main>
+
+<footer class="animated">
+    <p>&copy; 2024 Private cloud. All rights reserved.</p>
+</footer>
+
+<!-- GSAP Animation Script -->
+<script>
+    gsap.from(".animated", { duration: 1, opacity: 0, y: -20, stagger: 0.2 });
+</script>
+
+</body>
+</html>

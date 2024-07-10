@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Calendar with Events</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .calendar {
+            background-color: #ffffff;
+            width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .month {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .weekdays {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .weekdays span {
+            width: calc(100% / 7);
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #555555;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .day {
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .day:hover {
+            background-color: #f0f0f0;
+        }
+
+        .today {
+            background-color: #e0f7fa;
+        }
+
+        .event {
+            background-color: #4CAF50;
+            color: #ffffff;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-top: 2px;
+            display: inline-block;
+        }
+
+        .nav-btn {
+            background-color: #4CAF50;
+            color: #ffffff;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar">
+        <div class="month" id="monthDisplay">July 2024</div>
+        <div class="weekdays">
+            <span>Sun</span>
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+        </div>
+        <div class="days" id="calendarDays">
+            <!-- Days will be populated dynamically by JavaScript -->
+        </div>
+        <button class="nav-btn" id="prevMonth">Previous Month</button>
+        <button class="nav-btn" id="nextMonth">Next Month</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const calendarDays = document.getElementById("calendarDays");
+            const monthDisplay = document.getElementById("monthDisplay");
+            const prevMonthBtn = document.getElementById("prevMonth");
+            const nextMonthBtn = document.getElementById("nextMonth");
+
+            let currentMonth = new Date().getMonth();
+            let currentYear = new Date().getFullYear();
+
+            displayCalendar(currentYear, currentMonth);
+
+            prevMonthBtn.addEventListener("click", () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                displayCalendar(currentYear, currentMonth);
+            });
+
+            nextMonthBtn.addEventListener("click", () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                displayCalendar(currentYear, currentMonth);
+            });
+
+            function displayCalendar(year, month) {
+                calendarDays.innerHTML = "";
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const firstDayOfMonth = new Date(year, month, 1).getDay();
+
+                monthDisplay.textContent = new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
+
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const day = document.createElement("div");
+                    day.classList.add("day");
+                    day.textContent = i;
+
+                    const dateString = `${year}-${month + 1}-${i < 10 ? '0' + i : i}`;
+                    const today = new Date();
+
+                    if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
+                        day.classList.add("today");
+                    }
+
+                    // Check if there are events for this date and display them
+                    const events = getEvents(dateString); // Replace with your event fetching logic
+                    if (events.length > 0) {
+                        events.forEach(event => {
+                            const eventSpan = document.createElement("span");
+                            eventSpan.classList.add("event");
+                            eventSpan.textContent = event;
+                            day.appendChild(eventSpan);
+                        });
+                    }
+
+                    calendarDays.appendChild(day);
+                }
+            }
+
+            // Dummy event data function (for demonstration)
+            function getEvents(dateString) {
+                const events = {
+                    "2024-07-01": ["Event 1"],
+                    "2024-07-05": ["Event 2", "Event 3"],
+                    "2024-07-10": ["Event 4"],
+                    "2024-07-15": ["Event 5"],
+                    "2024-07-25": ["Event 6"],
+                };
+
+                return events[dateString] || [];
+            }
+        });
+    </script>
+</body>
+</html>

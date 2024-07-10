@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us - Private Cloud</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 10px;
+            max-width: 120px;
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #007BFF;
+            margin-bottom: 15px;
+        }
+        p, ul {
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        .contact-info {
+            margin-top: 20px;
+        }
+        .contact-info p {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .contact-info a {
+            font-size: 14px;
+            color: #007BFF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .contact-info a:hover {
+            color: #0056b3;
+        }
+        .cta-button {
+            display: inline-block;
+            margin: 15px auto;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% load static %}
+        <img src="{% static 'company.png'%}" alt="Company Logo" class="logo">
+        <h1>About Private Cloud</h1>
+        <p>
+            Welcome to Private Cloud, your trusted partner in securely managing your personal data. Our platform provides a comprehensive solution for storing and managing various types of data including personal contacts, images, documents, tasks, emails, addresses, passwords, and much more.
+        </p>
+        <p>
+            At Private Cloud, we prioritize your privacy and security. Our state-of-the-art encryption technology ensures that your data remains confidential and protected from unauthorized access. With our user-friendly interface, you can effortlessly perform CRUD (Create, Read, Update, Delete) operations on your data, giving you full control over your information.
+        </p>
+        <p>
+            Key Features of Private Cloud:
+        </p>
+        <ul>
+            <li>Secure storage for personal contacts, images, documents, tasks, emails, addresses, and passwords.</li>
+            <li>Easy-to-use interface for managing your data.</li>
+            <li>Ability to perform CRUD operations with just a few clicks.</li>
+            <li>Export your data in various formats for offline use.</li>
+            <li>Robust encryption to keep your data safe and private.</li>
+        </ul>
+        <p>
+            Our mission is to provide a reliable and secure platform for individuals to manage their personal data with ease and confidence. Whether you're organizing your contacts, safeguarding your passwords, or storing important documents, Private Cloud is here to help you every step of the way.
+        </p>
+        <p>
+            Thank you for choosing Private Cloud. We are committed to delivering exceptional service and continually enhancing our platform to meet your needs.
+        </p>
+        <div class="contact-info">
+            <p>For more information or support, please contact us:</p>
+            <p>Email: <a href="mailto:vishaldudhabarve105@gmail.com">support@privatecloud.com</a></p>
+        </div>
+        <a href="mailto:vishaldudhabarve105@gmail.com" class="cta-button">Contact Support</a>
+    </div>
+
+    <script>
+        // GSAP Animation
+        gsap.from(".container", {duration: 1, y: 50, opacity: 0, ease: "power3.out"});
+        gsap.from(".logo", {duration: 1, y: -50, opacity: 0, delay: 0.5, ease: "power3.out"});
+        gsap.from("h1", {duration: 1, scale: 0.9, opacity: 0, delay: 1, ease: "power3.out"});
+        gsap.from("p, ul, .contact-info", {duration: 1, x: 50, opacity: 0, delay: 1.5, stagger: 0.2, ease: "power3.out"});
+        gsap.from(".cta-button", {duration: 1, scale: 0.9, opacity: 0, delay: 2, ease: "elastic.out(1, 0.3)"});
+    </script>
+</body>
+</html>
+

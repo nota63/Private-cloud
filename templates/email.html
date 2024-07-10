@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Private Email</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .main-content {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        h4 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        section {
+            margin-bottom: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input[type="text"], button {
+            padding: 8px;
+            font-size: 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            text-decoration: none;
+        }
+        a button {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        a button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <h4>Kindly Save Your Private Email Here</h4>
+
+        <section>
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </section>
+
+        <section>
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="text" name="email" placeholder="Email" required>
+                <button type="submit">Save</button>
+            </form>
+        </section>
+
+        <section>
+            <a href="{% url 'view_email' %}">
+                <button>View Emails Database</button>
+            </a>
+        </section>
+    </div>
+
+    <script>
+        gsap.from(".main-content", { duration: 1, opacity: 0, y: -50 });
+    </script>
+</body>
+</html>

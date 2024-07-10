@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Help</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h6, h5 {
+            font-size: 12px;
+            margin: 10px 0;
+        }
+        form {
+            font-size: 12px;
+        }
+        input, button {
+            font-size: 12px;
+            padding: 5px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            font-size: 10px;
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .alert {
+            font-size: 10px;
+            color: #ff0000;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <h6>Fill your details and ensure they are correct, describe your issue in detail</h6>
+        <section>
+            {% if messages %}
+                {% for m in messages %}
+                    <div class="message"><strong>{{ m }}</strong></div>
+                {% endfor %}
+            {% endif %}
+        </section>
+        <section>
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="text" name="username" placeholder="Username on Private Cloud" required>
+                <input type="text" name="section" placeholder="Issue section (images, documents, etc.)" required>
+                <input type="text" name="issue" placeholder="Describe your issue in detail" required>
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <h5>Please select the date since you are facing the issue</h5>
+                <input type="date" name="date" required>
+                <button type="submit">Raise Issue</button>
+            </form>
+        </section>
+        <br>
+        <section>
+            <a href="{% url 'help_status' %}">
+                <button type="button">Help Status</button>
+            </a>
+        </section>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.from('.container', {duration: 1, y: -50, opacity: 0, ease: 'power1.out'});
+            gsap.from('input, button, h6, h5', {duration: 1, y: 20, opacity: 0, ease: 'power1.out', delay: 0.5, stagger: 0.1});
+        });
+    </script>
+</body>
+</html>

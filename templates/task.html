@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule Your Tasks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 300px;
+            height: 300px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 5px;
+        }
+        input, select, button {
+            font-size: 0.8rem;
+            padding: 5px;
+        }
+        h5 {
+            font-size: 0.7rem;
+            margin: 5px 0;
+        }
+        button {
+            background-color: lightblue;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        a {
+            text-align: center;
+        }
+        a button {
+            margin-top: 10px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <section>
+            {% if messages %}
+                {% for message in messages %}
+                    <strong>{{ message }}</strong>
+                {% endfor %}
+            {% endif %}
+        </section>
+        <section>
+            <form method="post">
+                {% csrf_token %}
+                <h5>You won't be notified if your task reaches the limit because this is a secured program. We prefer security.</h5>
+                <input type="text" name="task" placeholder="Your task" required>
+                <h5>Select time you want to accomplish your task on</h5>
+                <input type="time" name="time" placeholder="Time to accomplish" required>
+                <h5>Select date you want to accomplish your task</h5>
+                <input type="date" name="date" placeholder="Date to accomplish" required>
+                <h5>Write description</h5>
+                <input type="text" name="description" placeholder="Description" required>
+                <select name="select">
+                    <option value="important">Important</option>
+                    <option value="most important">Most important</option>
+                    <option value="not important">Not important</option>
+                    <option value="not interested">Not interested</option>
+                    <option value="worst task ever">Worst task ever</option>
+                </select>
+                <button type="submit">Save</button>
+            </form>
+        </section>
+        <a href="{% url 'view_task' %}">
+            <button type="button">View tasks</button>
+        </a>
+    </div>
+    <script>
+        gsap.from(".container", {duration: 1, opacity: 0, y: -50});
+        gsap.from("form input, form select, form button", {
+            duration: 1,
+            opacity: 0,
+            y: 50,
+            stagger: 0.2
+        });
+    </script>
+</body>
+</html>

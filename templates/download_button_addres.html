@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Download Your Addresses</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .main-content {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 12px;
+        }
+        li {
+            padding: 5px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .btn-download {
+            background-color: #add8e6;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 12px;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn-download:hover {
+            background-color: #005f8b;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <h3>Download Your Addresses</h3>
+        <ul>
+            {% for address in data %}
+                <li>{{ address.name }} - {{ address.city }} - {{ address.pin_code }} - {{ address.colony }} - {{ address.house_number }} - {{ address.district }} - {{ address.state }} - {{ address.country }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'download_address' %}" class="btn-download">Download Address</a>
+    </div>
+
+    <script>
+        gsap.from(".main-content", { duration: 1, opacity: 0, y: -50 });
+    </script>
+</body>
+</html>

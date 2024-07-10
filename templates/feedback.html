@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .main-content {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        section {
+            margin-bottom: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input[type="text"], select, button {
+            padding: 8px;
+            font-size: 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        select {
+            width: 100%;
+        }
+        button {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h5 {
+            font-size: 14px;
+            color: #333;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <section>
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </section>
+
+        <section>
+            <h5>Please give your valuable feedback to us</h5>
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="text" name="email" placeholder="Email" required>
+                <input type="text" name="comments" placeholder="Comments" required>
+                <select name="rating">
+                    <option value="very satisfied">Very Satisfied</option>
+                    <option value="satisfied">Satisfied</option>
+                    <option value="good">Good</option>
+                    <option value="bad">Bad</option>
+                    <option value="worst">Worst</option>
+                </select>
+                <h5>Would you recommend us?</h5>
+                <select name="recommend">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        gsap.from(".main-content", { duration: 1, opacity: 0, y: -50 });
+    </script>
+</body>
+</html>

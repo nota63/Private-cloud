@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Address</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 10px;
+        }
+        .container {
+            margin-top: 20px;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h3, h4, em {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .form-inline input {
+            font-size: 10px;
+        }
+        .form-inline button {
+            font-size: 10px;
+            padding: 4px 8px;
+        }
+        .table {
+            font-size: 10px;
+            margin-bottom: 5px;
+        }
+        .table th, .table td {
+            padding: 4px;
+        }
+        .openbtn, .btn-sm {
+            font-size: 10px;
+            padding: 4px 8px;
+            margin-top: 5px;
+        }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            padding: 6px 10px;
+            text-decoration: none;
+            font-size: 10px;
+            color: #ccc;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: #fff;
+        }
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 8px;
+            font-size: 16px;
+            margin-left: 40px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>View Addresses</h3>
+        <section>
+            <form method="get" class="form-inline mb-2">
+                <input type="text" name="add_search" class="form-control mr-2" placeholder="Search">
+                <button type="submit" class="btn btn-primary btn-sm">Find</button>
+            </form>
+        </section>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-center">Saved Addresses</h4>
+                <em>Total: {{ data|length }}</em>
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Pin Code</th>
+                            <th>Colony</th>
+                            <th>House No.</th>
+                            <th>District</th>
+                            <th>State</th>
+                            <th>Country</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for address in data %}
+                            <tr>
+                                <td>{{ address.id }}</td>
+                                <td>{{ address.name }}</td>
+                                <td>{{ address.city }}</td>
+                                <td>{{ address.pin_code }}</td>
+                                <td>{{ address.colony }}</td>
+                                <td>{{ address.house_number }}</td>
+                                <td>{{ address.district }}</td>
+                                <td>{{ address.state }}</td>
+                                <td>{{ address.country }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="9">No data found!</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="openbtn" onclick="openNav()">Show Delete</button>
+            </div>
+        </div>
+    </div>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        {% for address in data %}
+            <a href="{% url 'delete_address' address.id %}">Delete {{ address.name }}</a>
+        {% endfor %}
+    </div>
+    <section class="btn">
+        <a href="{% url 'download_button_address' %}">
+            <button type="submit" class="btn btn-primary btn-sm">Download Data</button>
+        </a>
+    </section>
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "200px";
+        }
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.from('.container', {duration: 1, y: -50, opacity: 0, ease: 'power1.out'});
+            gsap.from('h3, h4, em, .form-inline, .table, .openbtn, .btn-sm', {duration: 1, y: 20, opacity: 0, ease: 'power1.out', delay: 0.5, stagger: 0.1});
+        });
+    </script>
+</body>
+</html>

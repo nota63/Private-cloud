@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Image</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .main-content {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Adjusted gap between sections */
+        }
+        section {
+            margin-bottom: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px; /* Adjusted gap between form elements */
+        }
+        input[type="text"], input[type="file"], button {
+            padding: 8px;
+            font-size: 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            opacity: 1; /* Ensure elements are initially visible */
+        }
+        button {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            text-decoration: none;
+        }
+        a button {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        a button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <section id="message-section">
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </section>
+
+        <h2 id="upload-title">Upload Image</h2>
+        <form id="upload-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br>
+
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required><br>
+
+            <button type="submit">Upload Image</button>
+        </form>
+        <section id="view-section">
+            <a href="{% url 'view_images' %}">
+                <button id="view-button">View Images</button>
+            </a>
+        </section>
+    </div>
+
+    <script>
+        gsap.from("#message-section", {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            ease: "power3.out"
+        });
+
+        gsap.from("#upload-title, #upload-form, #view-section", {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out"
+        });
+    </script>
+</body>
+</html>

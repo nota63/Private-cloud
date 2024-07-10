@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>README Display</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            font-size: 12px; /* Smallest font size */
+            line-height: 1.4;
+        }
+        .container {
+            width: 400px; /* Adjusted width */
+            height: 600px; /* Fixed height */
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto; /* Enable scrolling */
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            opacity: 0; /* Start with container hidden */
+        }
+        pre {
+            margin: 0;
+            background-color: #f6f8fa; /* Code block background color */
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #0366d6; /* Header colors */
+        }
+        a {
+            color: #0366d6; /* Link color */
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace; /* Code font family */
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // GSAP animation for container fade-in
+            gsap.to('.container', { opacity: 1, duration: 1, delay: 0.5, ease: 'power2.inOut' });
+
+            // Highlight code blocks
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div id="readme-content">
+            <h1>Private Cloud Project</h1>
+
+            <p>Private Cloud is a robust Django-based web application designed to manage various cloud functionalities including contacts, emails, addresses, images, feedback, passwords, tasks, and Python code snippets.</p>
+
+            <h2>Table of Contents</h2>
+
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#usage">Usage</a></li>
+                <li><a href="#contributing">Contributing</a></li>
+                <li><a href="#license">License</a></li>
+            </ul>
+
+            <h2 id="features">Features</h2>
+
+            <h3 id="contacts-management">Contacts Management</h3>
+
+            <ul>
+                <li><strong>Add and View Contacts:</strong>
+                    <ul>
+                        <li>Capture and store contact information including name, relation, and contact number.</li>
+                        <li>Notify users upon successful contact addition.</li>
+                    </ul>
+                </li>
+                <li><strong>Delete Contacts:</strong>
+                    <ul>
+                        <li>Remove unwanted contacts from the database.</li>
+                        <li>Confirmation messages for successful deletions.</li>
+                    </ul>
+                </li>
+                <li><strong>Export Contacts:</strong>
+                    <ul>
+                        <li>Download all contacts as a CSV file for external use.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 id="email-cloud">Email Cloud</h3>
+
+            <ul>
+                <li><strong>Store Private Emails:</strong>
+                    <ul>
+                        <li>Securely store personal email addresses for future reference.</li>
+                        <li>Notifications for successful email storage.</li>
+                    </ul>
+                </li>
+                <li><strong>View Emails:</strong>
+                    <ul>
+                        <li>Browse through saved email entries.</li>
+                        <li>Search functionality to find specific emails.</li>
+                    </ul>
+                </li>
+                <li><strong>Delete Emails:</strong>
+                    <ul>
+                        <li>Remove emails from the database.</li>
+                        <li>Confirmation messages for successful deletions.</li>
+                    </ul>
+                </li>
+                <li><strong>Export Emails:</strong>
+                    <ul>
+                        <li>Download all email entries in CSV format.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 id="address-management">Address Management</h3>
+
+            <ul>
+                <li><strong>Add and View Addresses:</strong>
+                    <ul>
+                        <li>Record and display physical addresses including city, pin code, colony, house number, district, state, and country.</li>
+                    </ul>
+                </li>
+                <li><strong>Delete Addresses:</strong>
+                    <ul>
+                        <li>Delete unwanted addresses.</li>
+                        <li>Confirmation messages for successful deletions.</li>
+                    </ul>
+                </li>
+                <li><strong>Export Addresses:</strong>
+                    <ul>
+                        <li>Export all addresses as a CSV file.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 id="image-cloud">Image Cloud</h3>
+
+            <ul>
+                <li><strong>Upload Images:</strong>
+                    <ul>
+                        <li>Upload and store images securely.</li>
+                        <li>Title and description fields for better organization.</li>
+                    </ul>
+                </li>
+                <li><strong>View Images:</strong>
+                    <ul>
+                        <li>Browse uploaded images.</li>
+                        <li>Search images by title.</li>
+                    </ul>
+                </li>
+                <li><strong>Delete Images:</strong>
+                    <ul>
+                        <li>Remove images from the database.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 id="feedback-system">Feedback System</h3>
+
+            <ul>
+                <li><strong>Collect User Feedback:</strong>
+                    <ul>
+                        <li>Gather feedback from users including name, email, comments, rating, and recommendations.</li>
+                        <li>Notification upon receiving feedback.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 id="password-manager">Password Manager</h3>
+
+            <ul>
+                <li><strong>Store and Manage Passwords:</strong>
+                    <ul>
+                        <li>Store passwords securely with associated platforms and usernames/emails.</li>
+                        <li>Encryption and secure storage mechanism.</li>
+                    </ul>
+                </li>
+                <li><strong>View Passwords:</strong>
+                    <ul>
+                        <li>Browse stored passwords.</li>
+                        <li>Search passwords by platform.</li>
+                    </ul>
+                </li>
+                <li><strong>Delete Passwords:</strong>
+                    <ul>
+                        <li>Delete stored passwords.</li>
+                        <li>Confirmation messages for successful deletions.</li>
+                    </ul>
+                </li>
+                <li><strong>Export Passwords:</strong>
+                    <ul>
+                        <li>Export all passwords to a CSV file.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 id="task-management">Task Management</h3>
+
+            <ul>
+                <li><strong>Manage Tasks:</strong>
+                    <ul>
+                        <li>Organize tasks with dates, times, descriptions, and priority levels.</li>
+                        <li>Notification reminders for upcoming tasks.</li>
+                    </ul>
+                </li>
+                <li><strong>View Tasks:</strong>
+                    <ul>
+                        <li>View tasks categorized by date and priority.</li>
+                        <li>Search tasks by title or description.</li>
+                    </ul>
+                </li>
+                <li><strong>Delete Tasks:</strong>
+                    <ul>
+                        <li>Remove tasks from the system.</li>
+                        <li>Confirmation messages for successful deletions.</li>
+                    </ul>
+                </li>
+                <li><strong>Export Tasks:</strong>
+                    <ul>
+                        <li>Download all tasks in CSV format.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 id="python-code-scripts">Python Code Scripts</h3>
+
+            <ul>
+                <li><strong>Store and Share Code Snippets:</strong>
+                    <ul>
+                        <li>Add code snippets with titles, descriptions, Python versions, required libraries, and actual code.</li>
+                        <li>Repository for storing and sharing reusable code.</li>
+                    </ul>
+                </li>
+                <li><strong>View Code Snippets:</strong>
+                    <ul>
+                        <li>Browse through available code snippets.</li>
+                        <li>Search snippets by title or description.</li>
+                    </ul>
+                </li>
+                <li><strong>Delete Code Snippets:</strong>
+                    <ul>
+                        <li>Remove code snippets from the repository.</li>
+                        <li>Confirmation messages for successful deletions.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2 id="installation">Installation</h2>
+
+            <ol>
+                <li><strong>Clone the repository:</strong></li>
+                <pre><code>git clone &lt;repository_url&gt;
+cd private-cloud</code></pre>
+
+                <li><strong>Install dependencies:</strong></li>
+                <pre><code>pip install -r requirements.txt</code></pre>
+
+                <li><strong>Database setup:</strong></li>
+                <ul>
+                    <li>Configure your database settings in <code>settings.py</code>.</li>
+                    <li>Apply migrations:
+                        <pre><code>python manage.py migrate</code></pre>
+                    </li>
+                </ul>
+
+                <li><strong>Create a superuser:</strong></li>
+                <pre><code>python manage.py createsuperuser</code></pre>
+
+                <li><strong>Run the development server:</strong></li>
+                <pre><code>python manage.py runserver</code></pre>
+
+                <li><strong>Access the application:</strong></li>
+                <ul>
+                    <li>Open your web browser and navigate to <a href="http://localhost:8000">http://localhost:8000</a>.</li>
+                </ul>
+            </ol>
+
+            <h2 id="usage">Usage</h2>
+
+            <ol>
+                <li><strong>Login</strong> using your admin credentials.</li>
+                <li>Navigate through different sections (Contacts, Email, Address, etc.) to manage respective functionalities.</li>
+                <li>Upload images, manage feedback, passwords, tasks, and view Python code snippets.</li>
+                <li>Utilize search and export functionalities for efficient data management.</li>
+            </ol>
+
+            <h2 id="contributing">Contributing</h2>
+
+            <p>Contributions are welcome! Please fork the repository, create a feature branch, and submit a pull request with your enhancements.</p>
+
+            <h2 id="license">License</h2>
+
+            <p>This project is licensed under the MIT License. See the <a href="./LICENSE">LICENSE</a> file for details.</p>
+        </div>
+    </div>
+</body>
+</html>

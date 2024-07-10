@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Note</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0faff;
+            padding: 5px;
+            font-size: 0.7rem;
+        }
+        h1 {
+            font-size: 1rem;
+        }
+        form {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 5px;
+            font-size: 0.7rem;
+        }
+        input, textarea {
+            padding: 3px;
+            margin-top: 3px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            font-size: 0.7rem;
+        }
+        button {
+            margin-top: 10px;
+            padding: 5px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .view-notes-btn {
+            margin-top: 5px;
+            background-color: #4CAF50;
+            padding: 5px;
+        }
+        .view-notes-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add Note</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="topic">Topic:</label>
+        <input type="text" id="topic" name="topic" required>
+
+        <label for="notes">Notes:</label>
+        <textarea id="notes" name="notes" rows="5" required></textarea>
+
+        <button type="submit">Save Note</button>
+    </form>
+    <br>
+    <a href="{% url 'view_notes' %}">
+        <button type="button" class="view-notes-btn">View Notes</button>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.from("h1", { duration: 1, y: -50, opacity: 0, ease: "bounce" });
+            gsap.from("form", { duration: 1, y: 50, opacity: 0, delay: 0.5 });
+            gsap.from(".view-notes-btn", { duration: 1, scale: 0.8, opacity: 0, delay: 1 });
+        });
+    </script>
+</body>
+</html>
+

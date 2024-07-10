@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .main-content {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .delete-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .contact-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            border: none;
+            padding: 2px 5px;
+            cursor: pointer;
+            border-radius: 3px;
+            color: #fff;
+            font-size: 10px;
+        }
+        .btn-show-delete {
+            background-color: #005f8b;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 12px;
+            width: 100%;
+        }
+        button, input[type="submit"] {
+            background-color: #add8e6;
+            color: #fff;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 12px;
+            width: 100%;
+        }
+        button:hover, .btn-show-delete:hover, .btn-delete:hover {
+            background-color: #005f8b;
+        }
+        input[type="text"] {
+            margin-bottom: 5px;
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        h4 {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .form-section, .buttons-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <section>
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </section>
+
+        <section class="form-section">
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="text" name="relation" placeholder="Relation" required>
+                <input type="text" name="contact_number" placeholder="Contact Number" required>
+                <button type="submit">Save</button>
+            </form>
+        </section>
+
+        <section class="buttons-section">
+            <a href="{% url 'view_contacts' %}">
+                <button type="submit">View Contacts</button>
+            </a>
+            <button class="btn-show-delete" onclick="toggleDeleteContainer()">Show Delete Options</button>
+        </section>
+
+        <div class="delete-container" id="deleteContainer">
+            <h4>Delete Contacts</h4>
+            <ul class="contact-list">
+                {% for contact in data %}
+                    <li class="contact-item">
+                        <span>{{ contact.name }}</span>
+                        <a href="{% url 'delete_contact' contact.id %}" class="btn-delete">Delete</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        gsap.from(".main-content", { duration: 1, opacity: 0, y: -50 });
+
+        function toggleDeleteContainer() {
+            var deleteContainer = document.getElementById('deleteContainer');
+            if (deleteContainer.style.display === 'none' || deleteContainer.style.display === '') {
+                deleteContainer.style.display = 'block';
+                gsap.from("#deleteContainer", { duration: 1, opacity: 0, y: -20 });
+            } else {
+                gsap.to("#deleteContainer", { duration: 1, opacity: 0, y: -20, onComplete: function() {
+                    deleteContainer.style.display = 'none';
+                    gsap.set("#deleteContainer", { opacity: 1, y: 0 });
+                } });
+            }
+        }
+    </script>
+</body>
+</html>
